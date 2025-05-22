@@ -1,0 +1,159 @@
+{
+  "name": "Happy",
+  "nodes": [
+    {
+      "parameters": {
+        "sendTo": "={{ $json.message.content.extractEmail()}}",
+        "subject": "Hello, Happy",
+        "emailType": "text",
+        "message": "=Hey this msg is from n8n course demo to you , just to check everything works fine {{ $json.message.content}}\n\n",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        620,
+        220
+      ],
+      "id": "9b60fd2e-cf86-407b-8188-5159757d0294",
+      "name": "Gmail",
+      "webhookId": "294ad446-79f0-4c96-a12e-3fd7552779b5",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "zaAVcEmRPIoW2AAA",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "formTitle": "Contract Us ",
+        "formDescription": "Hey fill this form if you want to work with us ",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "first name",
+              "placeholder": "Happy",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "last name ",
+              "placeholder": "Gill",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Number",
+              "fieldType": "number",
+              "placeholder": "11111111111",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Email",
+              "fieldType": "email",
+              "placeholder": "happy@gmail.com",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Message",
+              "placeholder": "type your msg here ",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        220
+      ],
+      "id": "cd8d9adc-94bf-4b61-9502-421d2cdb2160",
+      "name": "On form submission",
+      "webhookId": "6d90145b-8d68-4cf2-bb35-1c2115d94226"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4.1-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "Hey! you are a intelligent email writing assistance for me.\nYou need to respond to the email msg.",
+              "role": "system"
+            },
+            {
+              "content": "=Subject: Thank You for Reaching Out, {{ $json['first name'] }}!\n\nHi {{ $json['first name'] }} {{ $json['last name '] }},\n\nThank you for getting in touch with us! We’ve received your message and appreciate you taking the time to contact us.\n\nHere’s a summary of what you submitted:\n\n📧 **Email**: {{ $json.Email }}  \n📞 **Phone Number**: {{ $json.Number }}  \n📝 **Message**:  \n{{ $json.Message }}\n\nOur team will review your message and get back to you as soon as possible. If your inquiry is urgent, feel free to reach out directly via phone.\n\nWe look forward to assisting you!\n\nWarm regards,  \n**Harpreet**\n\n--\nshow me the email address in content and exclude the subject "
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        220,
+        220
+      ],
+      "id": "ddfb2f7e-e3a3-4815-94de-c89ced69505d",
+      "name": "OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "rrzyWYyESjzcJn9H",
+          "name": "n8n test"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "main": [
+        [
+          {
+            "node": "Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "58e6b1d8-1328-475d-9ac8-5dc4a43994fe",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "99827efa976837deecc93f07daf566a8204cc12812f0807fbed61c476aad4f5a"
+  },
+  "id": "Dr0NlRStEFLg8qOT",
+  "tags": [
+    {
+      "name": "first",
+      "id": "saDgPdgUpr1e9nou",
+      "createdAt": "2025-05-22T02:39:06.012Z",
+      "updatedAt": "2025-05-22T02:39:06.012Z"
+    }
+  ]
+}
